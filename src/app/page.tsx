@@ -1,17 +1,19 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import useSpin from "@/hooks/useSpin";
+import useSpin from "@/hooks/useSound";
 import Image from "next/image";
 import SideBar from "@/components/sidebar";
 import AddModal from "@/components/addModal";
 import useAddContestants from "@/hooks/useAddContestants";
+import { message } from "antd";
+import useSound from "@/hooks/useSound";
 
 const spinDuration = 60000;
 let currentAngle = 0;
 const arrowAngle = -Math.PI / 2; // Arrow points to the top (north)
 
 export default function Home() {
-  const { spinSound } = useSpin();
+  const { playSpinSound, playWinnerSound } = useSound();
   const { addContestant, contestants, setInputValue, toggleModal, showModal } =
     useAddContestants();
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -66,7 +68,7 @@ export default function Home() {
           currentAngle,
           currentAngle + 2 * Math.PI
         );
-        context.fillStyle = "blue";
+        context.fillStyle = "green";
         context.fill();
         context.closePath();
         // Draw contestants
@@ -166,14 +168,14 @@ export default function Home() {
         drawWheel();
         initialLoad.current = false;
       }
-
-    
   }, [spinning]);
   
 
   useEffect(() => {
     if (!winner) return;
     // alert(winner);
+    message.success(winner)
+    playWinnerSound()
   }, [winner]);
 
   useEffect(() => {
@@ -226,7 +228,7 @@ export default function Home() {
         className='absolute top-0'
         onClick={() => {
           setSpinning(true);
-          spinSound();
+          playSpinSound();
         }}
       >
         Spin
