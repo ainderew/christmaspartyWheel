@@ -1,4 +1,4 @@
-
+"use client"
 function useSound(){
   const regularNotificationSound = new Audio('/spin.mp3');
   const winnerSound = new Audio('/victory.mp3');
