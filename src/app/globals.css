@@ -25,3 +25,13 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.inner {
+  box-shadow: 
+20px 20px 81px #ffffff,
+-20px -20px 81px #ffffff,
+  inset 0px 0px 20px 5px #202020, 
+  inset 0px 0px 20px 5px #202020;
+
+  
+}
